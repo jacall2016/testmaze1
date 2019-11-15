@@ -68,23 +68,48 @@ public class PresentMaze {
     public void drawMaze(Canvas canvas) {
         for (int gx = 0; gx < maze.array1.length; gx++) {
             for (int gy = 0; gy < maze.array1[gx].length; gy++) {
-                left = gx * cellSize;
-                top = gy * cellSize;
-                right = ((gx * cellSize) + cellSize - 1);
-                bottom = ((gy * cellSize) + cellSize - 1);
+                cells[gx][gy].left = gx * cellSize;
+                cells[gx][gy].top = gy * cellSize;
+                cells[gx][gy].right = ((gx * cellSize) + cellSize - 1);
+                cells[gx][gy].bottom = ((gy * cellSize) + cellSize - 1);
 
                 if (cells[gx][gy].wall) {
-                    mazeView.drawWallRect(canvas);
+                    mazeView.drawWallRect(canvas, cells[gx][gy].left, cells[gx][gy].right, cells[gx][gy].top, cells[gx][gy].bottom);
                 }
                 if (cells[gx][gy].player) {
-                    mazeView.drawPlayerRect(canvas);
+                    mazeView.drawPlayerRect(canvas, cells[gx][gy].left, cells[gx][gy].right, cells[gx][gy].top, cells[gx][gy].bottom);
                 }
                 if (cells[gx][gy].exit) {
-                    mazeView.drawExitRect(canvas);
+                    mazeView.drawExitRect(canvas, cells[gx][gy].left, cells[gx][gy].right, cells[gx][gy].top, cells[gx][gy].bottom);
                 }
             }
         }
 
+    }
+
+    public void movePlayer(Direction direction) {
+        for (int gx = 0; gx < cells.length; gx++) {
+            for (int gy = 0; gy < cells[gx].length; gy++) {
+                if (cells[gx][gy].player) {
+                    if (direction == direction.UP) {
+                        cells[gx][gy].top += cellSize;
+                        cells[gx][gy].bottom -= cellSize;
+                    }
+                    if (direction == direction.DOWN) {
+                        cells[gx][gy].top -= cellSize;
+                        cells[gx][gy].bottom += cellSize;
+                    }
+                    if (direction == direction.RIGHT) {
+                        cells[gx][gy].right += cellSize;
+                        cells[gx][gy].left -= cellSize;
+                    }
+                    if (direction == direction.LEFT) {
+                        cells[gx][gy].right -= cellSize;
+                        cells[gx][gy].left += cellSize;
+                    }
+                }
+            }
+        }
     }
 
     private class Cell {
@@ -92,6 +117,11 @@ public class PresentMaze {
                 wall = false,
                 player = false,
                 exit = false;
+        float
+            left = 0,
+            right = 0,
+            top = 0,
+            bottom = 0;
         int col, row;
 
         public Cell(int col, int row) {

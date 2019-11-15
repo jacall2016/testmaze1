@@ -53,16 +53,16 @@ public class MazeView  extends View {
         presentMaze.drawMaze(canvas);
     }
 
-    public void drawWallRect(Canvas canvas) {
-        canvas.drawRect(presentMaze.left, presentMaze.top, presentMaze.right, presentMaze.bottom, wallPaint);
+    public void drawWallRect(Canvas canvas, float right, float left, float top, float bottom) {
+        canvas.drawRect(left, top, right, bottom, wallPaint);
     }
 
-    public void drawPlayerRect(Canvas canvas) {
-        canvas.drawRect(presentMaze.left, presentMaze.top, presentMaze.right, presentMaze.bottom, playerPaint);
+    public void drawPlayerRect(Canvas canvas, float right, float left, float top, float bottom) {
+        canvas.drawRect(left, top, right, bottom, wallPaint);
     }
 
-    public void drawExitRect(Canvas canvas) {
-        canvas.drawRect(presentMaze.left, presentMaze.top, presentMaze.right, presentMaze.bottom,  exitPaint);
+    public void drawExitRect(Canvas canvas, float right, float left, float top, float bottom) {
+        canvas.drawRect(left, top, right, bottom, wallPaint);
     }
 
     @Override
