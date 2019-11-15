@@ -1,10 +1,18 @@
 package com.example.testmaze1;
 
+import android.graphics.Canvas;
+
 import com.google.gson.Gson;
 
 public class PresentMaze {
+
+    private enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    }
+
     private Maze maze;
     private Cell[][] cells;
+    public Cell player, exit;
     private int COLS, ROWS;
     public float cellSize, hMargin, vMargin;
     public float left, top, right, bottom;
@@ -20,55 +28,63 @@ public class PresentMaze {
         COLS = maze.cols1;
         ROWS = maze.rows1;
 
-        for (int i = 0; i < 1000; i++) {
-            System.out.println(height);
-        }
+
         if (width / height < COLS / ROWS) {
             cellSize = width / (ROWS + 1);
         } else {
             cellSize = height / (COLS + 1);
-            hMargin = (width - COLS * cellSize) / 2;
-            vMargin = (height - ROWS * cellSize) / 2;
         }
+
+        hMargin = (width - COLS * cellSize) / 2;
+        vMargin = (height - ROWS * cellSize) / 2;
+
         createMaze();
     }
 
     public void createMaze () {
-        for (int gx = 0; gx < 0; gx++) {
-            for (int gy = 0; gy < 0; gy++) {
-                left = gx * cellSize;
-                top = gy * cellSize;
-                right = (gx * cellSize) + cellSize - 1;
-                bottom = (gy * cellSize) + cellSize - 1;
-                if (maze.array1[gx][gy] == "W") {
+        cells = new Cell[maze.rows1][maze.cols1];
+        for (int gx = 0; gx < maze.array1.length; gx++) {
+            for (int gy = 0; gy < maze.array1[gx].length; gy++) {
+                if (maze.array1[gx][gy].contentEquals("W")) {
                     Cell cell = new Cell(gx, gy);
                     cell.wall = true;
                     cells[gx][gy] = cell;
-                } else if (maze.array1[gx][gy] == "P") {
+                } else if (maze.array1[gx][gy].contentEquals("P")) {
                     Cell cell = new Cell(gx, gy);
                     cell.player = true;
                     cells[gx][gy] = cell;
-                } else if (maze.array1[gx][gy] == "E") {
+                } else if (maze.array1[gx][gy].contentEquals("E")) {
                     Cell cell = new Cell(gx, gy);
                     cell.exit = true;
+                    cells[gx][gy] = cell;
+                } else {
+                    Cell cell = new Cell(gx, gy);
                     cells[gx][gy] = cell;
                 }
             }
         }
     }
 
-    public void drawMaze() {
-        for (int i = 0; i < 0; i++) {
-            for (int j = 0; i < 0; j++) {
-                if (cells[i][j].wall) {
-                    mazeView.drawWallRect();
-                } else if (cells[i][j].player) {
-                    mazeView.drawPlayerRect();
-                } else if (cells[i][j].exit) {
-                    mazeView.drawExitRect();
+    public void drawMaze(Canvas canvas) {
+        for (int gx = 0; gx < maze.array1.length; gx++) {
+            for (int gy = 0; gy < maze.array1[gx].length; gy++) {
+                left = gx * cellSize;
+                top = gy * cellSize;
+                right = ((gx * cellSize) + cellSize - 1);
+                bottom = ((gy * cellSize) + cellSize - 1);
+
+                if (cells[gx][gy].wall) {
+                    mazeView.drawWallRect(canvas);
+                }
+                if (cells[gx][gy].player) {
+                    mazeView.drawPlayerRect(canvas);
+                }
+                if (cells[gx][gy].exit) {
+                    mazeView.drawExitRect(canvas);
                 }
             }
         }
+
     }
 
     private class Cell {

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class MazeView  extends View {
         exitPaint = new Paint();
         exitPaint.setColor(Color.BLUE);
         maze = new Maze();
+
     }
 
     @Override
@@ -38,6 +40,7 @@ public class MazeView  extends View {
         super.onLayout(changed, left, top, right, bottom);
         width = getWidth();
         height = getHeight();
+        //System.out.println(height);
         presentMaze = new PresentMaze(this, height, width);
         presentMaze.createMaze();
     }
@@ -47,18 +50,30 @@ public class MazeView  extends View {
         super.onDraw(canvas);
         canvas.drawColor(Color.GREEN);
         canvas.translate(presentMaze.hMargin,presentMaze.vMargin);
-        presentMaze.drawMaze();
+        presentMaze.drawMaze(canvas);
     }
 
-    public void drawWallRect() {
+    public void drawWallRect(Canvas canvas) {
         canvas.drawRect(presentMaze.left, presentMaze.top, presentMaze.right, presentMaze.bottom, wallPaint);
     }
 
-    public void drawPlayerRect() {
+    public void drawPlayerRect(Canvas canvas) {
         canvas.drawRect(presentMaze.left, presentMaze.top, presentMaze.right, presentMaze.bottom, playerPaint);
     }
 
-    public void drawExitRect() {
+    public void drawExitRect(Canvas canvas) {
         canvas.drawRect(presentMaze.left, presentMaze.top, presentMaze.right, presentMaze.bottom,  exitPaint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+            return true;
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            float x = event.getX();
+            float y = event.getY();
+
+        }
+        return true;
     }
 }
