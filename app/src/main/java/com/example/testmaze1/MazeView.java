@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 //displays the area of the maze close to the character, and moves the maze around the character.
 public class MazeView  extends View {
+
     private Maze maze;
     private Paint wallPaint, playerPaint, exitPaint;
     public Canvas canvas;
@@ -45,7 +47,7 @@ public class MazeView  extends View {
         presentMaze.createMaze();
     }
 
-    @Override
+
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.GREEN);
@@ -53,27 +55,30 @@ public class MazeView  extends View {
         presentMaze.drawMaze(canvas);
     }
 
-    public void drawWallRect(Canvas canvas, float right, float left, float top, float bottom) {
+    public void drawWallRect(Canvas canvas, float left, float top, float right, float bottom) {
         canvas.drawRect(left, top, right, bottom, wallPaint);
     }
 
-    public void drawPlayerRect(Canvas canvas, float right, float left, float top, float bottom) {
-        canvas.drawRect(left, top, right, bottom, wallPaint);
+    public void drawPlayerRect(Canvas canvas, float left, float top, float right, float bottom) {
+        canvas.drawRect(left, top, right, bottom, playerPaint);
+        System.out.println("left3: " + left + "right3: " + right);
     }
 
-    public void drawExitRect(Canvas canvas, float right, float left, float top, float bottom) {
-        canvas.drawRect(left, top, right, bottom, wallPaint);
+    public void drawExitRect(Canvas canvas, float left, float top, float right, float bottom) {
+        canvas.drawRect(left, top, right, bottom, exitPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
-            return true;
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            float x = event.getX();
-            float y = event.getY();
+        String direction = "RIGHT";
+        presentMaze.movePlayer(direction);
+        invalidate();
+        return true;
+    }
 
-        }
+    public boolean onFling(MotionEvent event1, MotionEvent event2,
+                           float velocityX, float velocityY) {
+        System.out.println("onFling: " + event1.toString() + event2.toString());
         return true;
     }
 }
