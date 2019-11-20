@@ -1,6 +1,7 @@
 package com.example.testmaze1;
 
 import android.graphics.Canvas;
+import android.view.GestureDetector;
 
 import com.google.gson.Gson;
 

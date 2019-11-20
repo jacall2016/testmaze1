@@ -5,8 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -15,7 +18,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 //displays the area of the maze close to the character, and moves the maze around the character.
-public class MazeView  extends View {
+public class MazeView  extends View implements GestureDetector.OnGestureListener {
+    private final GestureDetector gestureDetector;
     private Maze maze;
     private Paint wallPaint, playerPaint, exitPaint;
     public Canvas canvas;
@@ -33,6 +37,7 @@ public class MazeView  extends View {
         exitPaint.setColor(Color.BLUE);
         maze = new Maze();
 
+        gestureDetector = new GestureDetector(this);
     }
 
     @Override
@@ -66,14 +71,94 @@ public class MazeView  extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
-            return true;
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            float x = event.getX();
-            float y = event.getY();
+    public boolean onDown(MotionEvent e) {
+        return false;
+        
+    }
 
-        }
-        return true;
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY) {
+        boolean result = false;
+        float diffY = moveEvent.getY() - downEvent.getY();
+       float diffX = moveEvent.getX() - downEvent.getX();
+
+       if (Math.abs(diffX) > Math.abs(diffY))
+       {
+        //Right or left swipe..
+
+            if (Math.abs(diffX) > 100 && Math.abs(velocityX) > 100)
+            {
+                if (diffX > 0)
+                {
+                    onSwipeRight();
+                }
+                else
+                {
+                    onSwipeLeft();
+                }
+                result = true;
+            }
+       }
+       else
+       {
+           // up or down Swipe...
+           if (Math.abs(diffY) > 100 && Math.abs(velocityY) > 100)
+           {
+               if (diffY > 0)
+               {
+                   onSwipeBottom();
+               }
+               else
+               {
+                   onSwipeTop();
+               }
+
+               result = true;
+           }
+       }
+        return result;
+    }
+
+    private void onSwipeLeft() {
+        Log.d("Left", "USer Swiped LEFT!!!!");
+    }
+
+    private void onSwipeRight() {
+        Log.d("Right", "USer Swiped RIght!!!!");
+    }
+
+    private void onSwipeBottom() {
+        Log.d("down", "USer Swiped down!!!!");
+    }
+
+    private void onSwipeTop() {
+        Log.d("Up", "USer Swiped UP!!!!");
+
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 }
