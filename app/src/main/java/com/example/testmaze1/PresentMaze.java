@@ -24,14 +24,11 @@ public class PresentMaze {
         COLS = maze.cols1;
         ROWS = maze.rows1;
 
-        /*
         if (width / height < COLS / ROWS) {
             cellSize = width / (ROWS + 1);
         } else {
             cellSize = height / (COLS + 1);
         }
-        */
-        cellSize = width / (ROWS + 1);
 
         hMargin = (width - COLS * cellSize) / 2;
         vMargin = (height - ROWS * cellSize) / 2;
@@ -84,22 +81,28 @@ public class PresentMaze {
                 System.out.println("right1: " + cells[gx][gy].right + "left1: " + cells[gx][gy].left);
                 if (cells[gx][gy].player) {
                     if (direction == "UP") {
-                        cells[gx][gy].top += cellSize;
-                        cells[gx][gy].bottom += cellSize;
+                        if(!cells[gx][gy-1].wall) {
+                            cells[gx][gy].player = false;
+                            cells[gx][gy-1].player = true;
+                        }
                     }
                     if (direction == "DOWN") {
-                        cells[gx][gy].top -= cellSize;
-                        cells[gx][gy].bottom -= cellSize;
+                        if(!cells[gx][gy+1].wall) {
+                            cells[gx][gy].player = false;
+                            cells[gx][gy+1].player = true;
+                        }
                     }
                     if (direction == "RIGHT") {
-                        cells[gx][gy].right += cellSize;
-                        cells[gx][gy].left += cellSize;
-                        //System.out.println("direction: " + "inside");
-                        System.out.println("right2: " + cells[gx][gy].right + "left2: " + cells[gx][gy].left);
+                        if(!cells[gx+1][gy].wall) {
+                            cells[gx][gy].player = false;
+                            cells[gx+1][gy].player = true;
+                        }
                     }
                     if (direction == "LEFT") {
-                        cells[gx][gy].right -= cellSize;
-                        cells[gx][gy].left -= cellSize;
+                        if(!cells[gx-1][gy].wall) {
+                            cells[gx][gy].player = false;
+                            cells[gx-1][gy].player = true;
+                        }
                     }
                 }
             }

@@ -70,7 +70,7 @@ public class MazeView  extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        String direction = "RIGHT";
+        String direction = "LEFT";
         presentMaze.movePlayer(direction);
         invalidate();
         return true;
