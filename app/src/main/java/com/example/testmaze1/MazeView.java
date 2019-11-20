@@ -15,12 +15,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+
+
 //displays the area of the maze close to the character, and moves the maze around the character.
 public class MazeView  extends View {
-
+    public float x, y;
     private Maze maze;
     private Paint wallPaint, playerPaint, exitPaint;
-    public Canvas canvas;
     public int width;
     public int height;
     public PresentMaze presentMaze;
@@ -70,15 +71,33 @@ public class MazeView  extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        String direction = "LEFT";
+        int action = event.getActionMasked();
+
+        String direction = "";
+        switch(action) {
+            case MotionEvent.ACTION_DOWN:
+                x = event.getX();
+                y = event.getY();
+            case MotionEvent.ACTION_UP:
+                float finnalX = event.getX();
+                float finnalY = event.getY();
+                System.out.println("Finnal x: " + x + " X: " + x);
+                if (x < finnalX) {
+                    direction = "LEFT";
+                }
+                if (x > finnalX) {
+                    direction = "RIGHT";
+                }
+                if (y < finnalY) {
+                    direction = "DOWN";
+                }
+                if (y > finnalY) {
+                    direction = "UP";
+                }
+                break;
+        }
         presentMaze.movePlayer(direction);
         invalidate();
-        return true;
-    }
-
-    public boolean onFling(MotionEvent event1, MotionEvent event2,
-                           float velocityX, float velocityY) {
-        System.out.println("onFling: " + event1.toString() + event2.toString());
         return true;
     }
 }
