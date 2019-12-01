@@ -1,5 +1,5 @@
 package com.example.testmaze1;
-
+import java.lang.Math;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class MazeView  extends View {
     public float x, y;
     private Maze maze;
-    private Paint wallPaint, playerPaint, exitPaint;
+    private Paint wallPaint, playerPaint, exitPaint, enemyPaint, lazerPaint;
     public int width;
     public int height;
     public PresentMaze presentMaze;
@@ -31,11 +31,14 @@ public class MazeView  extends View {
         wallPaint = new Paint();
         wallPaint.setColor(Color.BLACK);
         playerPaint = new Paint();
-        playerPaint.setColor(Color.RED);
+        playerPaint.setColor(Color.GREEN);
         exitPaint = new Paint();
         exitPaint.setColor(Color.BLUE);
+        enemyPaint = new Paint();
+        enemyPaint.setColor(Color.RED);
+        lazerPaint = new Paint();
+        lazerPaint.setColor(Color.YELLOW);
         maze = new Maze();
-
     }
 
     @Override
@@ -51,7 +54,7 @@ public class MazeView  extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.GREEN);
+        canvas.drawColor(Color.GRAY);
         canvas.translate(presentMaze.hMargin,presentMaze.vMargin);
         presentMaze.drawMaze(canvas);
     }
@@ -69,35 +72,52 @@ public class MazeView  extends View {
         canvas.drawRect(left, top, right, bottom, exitPaint);
     }
 
+    public void drawMonsterRect(Canvas canvas, float left, float top, float right, float bottom) {
+        canvas.drawRect(left, top, right, bottom, enemyPaint);
+    }
+
+    public void drawLazerRect(Canvas canvas, float left, float top, float right, float bottom) {
+        canvas.drawRect(left, top, right, bottom, lazerPaint);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
-
+        //x = event.getX();
+        //y = event.getY();
         String direction = "";
-        switch(action) {
-            case MotionEvent.ACTION_DOWN:
-                x = event.getX();
-                y = event.getY();
-            case MotionEvent.ACTION_UP:
-                float finnalX = event.getX();
-                float finnalY = event.getY();
-                System.out.println("Finnal x: " + x + " X: " + x);
-                if (x < finnalX) {
-                    direction = "LEFT";
-                }
-                if (x > finnalX) {
-                    direction = "RIGHT";
-                }
-                if (y < finnalY) {
-                    direction = "DOWN";
-                }
-                if (y > finnalY) {
-                    direction = "UP";
-                }
-                break;
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            x = event.getX();
+            y = event.getY();
         }
-        presentMaze.movePlayer(direction);
-        invalidate();
+
+        if (action == MotionEvent.ACTION_UP) {
+            float finnalX = event.getX();
+            float finnalY = event.getY();
+            //System.out.println("Finnal x: " + finnalX + " X: " + x);
+            //System.out.println("difference: " + (finnalX - x));
+            if (x < finnalX && (x - finnalX) < 100) {
+                direction = "RIGHT";
+                presentMaze.moveCells(direction);
+                invalidate();
+            }
+            if (x > finnalX && (x - finnalX) > 100) {
+                direction = "LEFT";
+                presentMaze.moveCells(direction);
+                invalidate();
+            }
+            if (y < finnalY && (y - finnalY) < 100) {
+                direction = "DOWN";
+                presentMaze.moveCells(direction);
+                invalidate();
+            }
+            if (y > finnalY && (y - finnalY) > 100) {
+                direction = "UP";
+                presentMaze.moveCells(direction);
+                invalidate();
+            }
+        }
         return true;
     }
 }

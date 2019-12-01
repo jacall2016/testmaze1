@@ -12,4 +12,7 @@ public class Maze {
     public String [][]array3;
     public int rows3;
     public int cols3;
+    public String [][]array4;
+    public int rows4;
+    public int cols4;
 }
