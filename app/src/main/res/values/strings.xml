@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="menu">Menu</string>
-    <string name="timeDisplayed">time 0</string>
-    <string name="highScore">High Score: 0</string>
-    <string name="enterMaze">Enter Maze</string>
-</resources>
+
+        <string name="app_name">MazeProject</string>
+        <string name="Create">create by</string>
+        <string name="Music">Music</string>
+        <string name="by">By</string>
+        <string name="Label">A-MAZE-ING</string>
+        <string name="Start">Start</string>
+        <string name="Level">Level</string>
+        <string name="off">Off Music</string>
+        <string name="on">On music</string>
+        <string name="start">Start</string>
+    </resources>
+
+

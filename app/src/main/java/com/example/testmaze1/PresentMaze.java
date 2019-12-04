@@ -22,7 +22,7 @@ public class PresentMaze {
     private float HIEGHT;
     private float WIDTH;
     private Paint wallPaint, playerPaint, exitPaint, enemyPaint, lazerPaint, backgroundPaint;
-    MazeActivity mazeActivity;
+    MainActivity mainActivity;
 
 
     public PresentMaze(MazeView mazeView,int height, int width) {
@@ -33,7 +33,7 @@ public class PresentMaze {
         maze = gson.fromJson(file, Maze.class);
         //System.out.println(file);
 
-        mazeActivity = new MazeActivity();
+        mainActivity = new MainActivity();
 
         time = 0;
 
@@ -238,7 +238,7 @@ public class PresentMaze {
                         presentLevel();
                         createMaze();
                     } else {
-                        mazeActivity.mainMenu();
+                        mainActivity.mainMenu();
                     }
                 }
 
@@ -355,7 +355,7 @@ public class PresentMaze {
                         presentLevel();
                         createMaze();
                     } else {
-                        mazeActivity.mainMenu();
+                        mainActivity.mainMenu();
                     }
                 }
 

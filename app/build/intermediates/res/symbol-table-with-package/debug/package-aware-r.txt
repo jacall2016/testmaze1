@@ -741,6 +741,8 @@ id barrier
 id beginning
 id blocking
 id bottom
+id button
+id button2
 id buttonPanel
 id center_vertical
 id chains
@@ -780,6 +782,7 @@ id line1
 id line3
 id listMode
 id list_item
+id mazeView
 id message
 id middle
 id multiply
@@ -844,6 +847,9 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
+id textView2
+id textView4
 id time
 id title
 id titleDividerNoCustom
@@ -898,6 +904,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_maze
 layout custom_dialog
 layout notification_action
 layout notification_action_tombstone
@@ -939,8 +946,12 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string app_name
+string enterMaze
+string highScore
+string menu
 string search_menu_title
 string status_bar_notification_info_overflow
+string timeDisplayed
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

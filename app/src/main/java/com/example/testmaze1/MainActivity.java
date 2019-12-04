@@ -1,21 +1,26 @@
 package com.example.testmaze1;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Chronometer;
+import android.widget.Toast;
 
-public class MazeActivity extends AppCompatActivity {
+import android.os.Bundle;
 
+public class MainActivity extends AppCompatActivity {
+
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean running;
     Intent intent;
-    PresentMaze presentMaze;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maze);
+        setContentView(R.layout.activity_main);
     }
 
     public void menuButton(View view) {
