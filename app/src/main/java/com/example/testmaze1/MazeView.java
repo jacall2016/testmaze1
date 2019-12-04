@@ -1,43 +1,27 @@
 package com.example.testmaze1;
-import java.lang.Math;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
 
 
 //displays the area of the maze close to the character, and moves the maze around the character.
-public class MazeView  extends View {
+public class MazeView extends View{
     public float x, y;
     private Maze maze;
-    private Paint wallPaint, playerPaint, exitPaint, enemyPaint, lazerPaint;
     public int width;
     public int height;
     public PresentMaze presentMaze;
 
     public MazeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        wallPaint = new Paint();
-        wallPaint.setColor(Color.BLACK);
-        playerPaint = new Paint();
-        playerPaint.setColor(Color.GREEN);
-        exitPaint = new Paint();
-        exitPaint.setColor(Color.BLUE);
-        enemyPaint = new Paint();
-        enemyPaint.setColor(Color.RED);
-        lazerPaint = new Paint();
-        lazerPaint.setColor(Color.YELLOW);
         maze = new Maze();
     }
 
@@ -51,7 +35,6 @@ public class MazeView  extends View {
         presentMaze.createMaze();
     }
 
-
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.GRAY);
@@ -59,25 +42,8 @@ public class MazeView  extends View {
         presentMaze.drawMaze(canvas);
     }
 
-    public void drawWallRect(Canvas canvas, float left, float top, float right, float bottom) {
-        canvas.drawRect(left, top, right, bottom, wallPaint);
-    }
-
-    public void drawPlayerRect(Canvas canvas, float left, float top, float right, float bottom) {
-        canvas.drawRect(left, top, right, bottom, playerPaint);
-        System.out.println("left3: " + left + "right3: " + right);
-    }
-
-    public void drawExitRect(Canvas canvas, float left, float top, float right, float bottom) {
-        canvas.drawRect(left, top, right, bottom, exitPaint);
-    }
-
-    public void drawMonsterRect(Canvas canvas, float left, float top, float right, float bottom) {
-        canvas.drawRect(left, top, right, bottom, enemyPaint);
-    }
-
-    public void drawLazerRect(Canvas canvas, float left, float top, float right, float bottom) {
-        canvas.drawRect(left, top, right, bottom, lazerPaint);
+    public void drawRect(Canvas canvas, float left, float top, float right, float bottom, Paint color) {
+        canvas.drawRect(left, top, right, bottom, color);
     }
 
     @Override
