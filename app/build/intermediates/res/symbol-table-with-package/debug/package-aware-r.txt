@@ -391,6 +391,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color black
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -661,6 +662,7 @@ drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable maze123
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -678,9 +680,12 @@ drawable tooltip_frame_light
 id ALT
 id CTRL
 id FUNCTION
+id Level
 id META
+id Name
 id SHIFT
 id SYM
+id StartGame
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -742,7 +747,6 @@ id beginning
 id blocking
 id bottom
 id button
-id button2
 id buttonPanel
 id center_vertical
 id chains
@@ -848,8 +852,6 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textView
-id textView2
-id textView4
 id time
 id title
 id titleDividerNoCustom
@@ -903,9 +905,9 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_main
 layout activity_maze
 layout custom_dialog
+layout menu
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big
@@ -918,6 +920,12 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw fantasymenu
+string Create
+string Label
+string Level
+string Music
+string Start
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -946,10 +954,12 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string app_name
-string enterMaze
-string highScore
+string by
 string menu
+string off
+string on
 string search_menu_title
+string start
 string status_bar_notification_info_overflow
 string timeDisplayed
 style AlertDialog_AppCompat

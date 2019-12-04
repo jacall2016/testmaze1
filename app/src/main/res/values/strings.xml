@@ -10,6 +10,8 @@
         <string name="off">Off Music</string>
         <string name="on">On music</string>
         <string name="start">Start</string>
+        <string name="menu">Menu</string>
+        <string name="timeDisplayed">TimeDisplayed</string>
     </resources>
 
 

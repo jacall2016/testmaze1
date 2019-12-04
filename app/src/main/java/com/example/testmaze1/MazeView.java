@@ -7,13 +7,14 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ExpandableListView;
 
 import androidx.annotation.Nullable;
 
 
 
 //displays the area of the maze close to the character, and moves the maze around the character.
-public class MazeView extends View{
+public class MazeView extends View {
     public float x, y;
     private Maze maze;
     public int width;
@@ -38,7 +39,7 @@ public class MazeView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.GRAY);
-        canvas.translate(presentMaze.hMargin,presentMaze.vMargin);
+        canvas.translate(presentMaze.hMargin, presentMaze.vMargin);
         presentMaze.drawMaze(canvas);
     }
 
@@ -53,37 +54,32 @@ public class MazeView extends View{
         //y = event.getY();
         String direction = "";
 
-        if (action == MotionEvent.ACTION_DOWN) {
-            x = event.getX();
-            y = event.getY();
-        }
-
-        if (action == MotionEvent.ACTION_UP) {
-            float finnalX = event.getX();
-            float finnalY = event.getY();
-            //System.out.println("Finnal x: " + finnalX + " X: " + x);
-            //System.out.println("difference: " + (finnalX - x));
-            if (x < finnalX && (x - finnalX) < 100) {
-                direction = "RIGHT";
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                x = event.getX();
+                y = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                float finnalX = event.getX();
+                float finnalY = event.getY();
+                if (Math.abs(x - finnalX) > Math.abs(y - finnalY)) {
+                    if (x < finnalX) {
+                        direction = "RIGHT";
+                    } else {
+                        direction = "LEFT";
+                    }
+                } else {
+                    if (y > finnalY) {
+                        direction = "UP";
+                    } else {
+                        direction = "DOWN";
+                    }
+                }
                 presentMaze.moveCells(direction);
                 invalidate();
-            }
-            if (x > finnalX && (x - finnalX) > 100) {
-                direction = "LEFT";
-                presentMaze.moveCells(direction);
-                invalidate();
-            }
-            if (y < finnalY && (y - finnalY) < 100) {
-                direction = "DOWN";
-                presentMaze.moveCells(direction);
-                invalidate();
-            }
-            if (y > finnalY && (y - finnalY) > 100) {
-                direction = "UP";
-                presentMaze.moveCells(direction);
-                invalidate();
-            }
+                break;
         }
         return true;
     }
 }
+
