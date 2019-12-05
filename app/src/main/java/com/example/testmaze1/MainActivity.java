@@ -21,6 +21,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maze);
+        chronometer = findViewById(R.id.chronometer);
+        startTimer();
+    }
+
+    public void startTimer()
+    {
+        if (!running)
+        {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
     }
 
     public void menuButton(View view) {
@@ -29,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mainMenu() {
-        intent = new Intent(this, MainActivity.class);
+        intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
 
     }
 }
