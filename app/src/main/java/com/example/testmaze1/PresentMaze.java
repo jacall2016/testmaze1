@@ -12,6 +12,7 @@ public class PresentMaze {
 
     public int time;
 
+
     private Maze maze;
     private Cell[][] cells;
     private String[][] CURRENT_ARRAY;
@@ -238,7 +239,7 @@ public class PresentMaze {
                         presentLevel();
                         createMaze();
                     } else {
-                        mainActivity.mainMenu();
+                        mainActivity.callMainMenu();
                     }
                 }
 
@@ -355,7 +356,7 @@ public class PresentMaze {
                         presentLevel();
                         createMaze();
                     } else {
-                        mainActivity.mainMenu();
+                        mainActivity.callMainMenu();
                     }
                 }
 

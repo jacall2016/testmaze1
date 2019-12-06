@@ -27,22 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
     public void startTimer()
     {
+
         if (!running)
         {
-            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
             running = true;
-        }
-    }
 
+
+
+        }
+
+    }
     public void menuButton(View view) {
         //return to main menu
+
+        mainMenu();
+
+    }
+    public void callMainMenu(){
         mainMenu();
     }
 
     public void mainMenu() {
-        intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
+        long elapsedTime = 0;
+        elapsedTime = (SystemClock.elapsedRealtime() - chronometer.getBase());
+        Intent myIntent = new Intent(this, MenuActivity.class);
+        myIntent.putExtra("Time", elapsedTime);
+        startActivity(myIntent);
 
     }
 }

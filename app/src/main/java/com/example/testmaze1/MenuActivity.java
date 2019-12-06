@@ -27,6 +27,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Button level = (Button) findViewById(R.id.Level);
         level.setOnClickListener(this);
 
+        long elapsedTime = getIntent().getLongExtra("Time", 999999999);
+        if (elapsedTime < 999999999) {
+            elapsedTime /= 1000;
+            String s1 = Long.toString(elapsedTime);
+            TextView theTextView = (TextView) findViewById(R.id.TextView1);
+            theTextView.setText("Highscore: " + s1);
+        }
+        else if (elapsedTime == 999999999){
+            TextView theTextView = (TextView) findViewById(R.id.TextView1);
+            theTextView.setText("Highscore:");
+
+        }
+
 
       //  Animation scale = AnimationUtils.loadAnimation(this, R.anim.myscale);
         //scale.setFillAfter(true);

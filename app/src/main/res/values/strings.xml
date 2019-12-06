@@ -12,6 +12,7 @@
         <string name="start">Start</string>
         <string name="menu">Menu</string>
         <string name="timeDisplayed">TimeDisplayed</string>
+        <string name="HighScore"></string>
     </resources>
 
 

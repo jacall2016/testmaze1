@@ -38,8 +38,8 @@
             android:textSize="36sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="386dp"
+            android:layout_height="558dp"
             android:orientation="vertical">
 
             <Button
@@ -93,7 +93,18 @@
                 android:layout_marginBottom="5dp"
                 android:background="#FFD600"
                 android:text="@string/on" />
+
+            <TextView
+                android:id="@+id/TextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_purple"
+                android:text="@string/HighScore"
+                android:textColor="#030003"
+                android:textSize="30sp" />
+
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
