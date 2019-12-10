@@ -783,15 +783,15 @@ public final class R {
         public static final int text2 = 0x7f0700ab;
         public static final int textSpacerNoButtons = 0x7f0700ac;
         public static final int textSpacerNoTitle = 0x7f0700ad;
-        public static final int time = 0x7f0700af;
-        public static final int title = 0x7f0700b0;
-        public static final int titleDividerNoCustom = 0x7f0700b1;
-        public static final int title_template = 0x7f0700b2;
-        public static final int topPanel = 0x7f0700b4;
-        public static final int unchecked = 0x7f0700b5;
-        public static final int uniform = 0x7f0700b6;
-        public static final int up = 0x7f0700b7;
-        public static final int wrap_content = 0x7f0700bb;
+        public static final int time = 0x7f0700ae;
+        public static final int title = 0x7f0700af;
+        public static final int titleDividerNoCustom = 0x7f0700b0;
+        public static final int title_template = 0x7f0700b1;
+        public static final int topPanel = 0x7f0700b3;
+        public static final int unchecked = 0x7f0700b4;
+        public static final int uniform = 0x7f0700b5;
+        public static final int up = 0x7f0700b6;
+        public static final int wrap_content = 0x7f0700ba;
     }
     public static final class integer {
         private integer() {}
@@ -859,35 +859,35 @@ public final class R {
     public static final class string {
         private string() {}
 
-        public static final int abc_action_bar_home_description = 0x7f0d0005;
-        public static final int abc_action_bar_up_description = 0x7f0d0006;
-        public static final int abc_action_menu_overflow_description = 0x7f0d0007;
-        public static final int abc_action_mode_done = 0x7f0d0008;
-        public static final int abc_activity_chooser_view_see_all = 0x7f0d0009;
-        public static final int abc_activitychooserview_choose_application = 0x7f0d000a;
-        public static final int abc_capital_off = 0x7f0d000b;
-        public static final int abc_capital_on = 0x7f0d000c;
-        public static final int abc_menu_alt_shortcut_label = 0x7f0d000d;
-        public static final int abc_menu_ctrl_shortcut_label = 0x7f0d000e;
-        public static final int abc_menu_delete_shortcut_label = 0x7f0d000f;
-        public static final int abc_menu_enter_shortcut_label = 0x7f0d0010;
-        public static final int abc_menu_function_shortcut_label = 0x7f0d0011;
-        public static final int abc_menu_meta_shortcut_label = 0x7f0d0012;
-        public static final int abc_menu_shift_shortcut_label = 0x7f0d0013;
-        public static final int abc_menu_space_shortcut_label = 0x7f0d0014;
-        public static final int abc_menu_sym_shortcut_label = 0x7f0d0015;
-        public static final int abc_prepend_shortcut_label = 0x7f0d0016;
-        public static final int abc_search_hint = 0x7f0d0017;
-        public static final int abc_searchview_description_clear = 0x7f0d0018;
-        public static final int abc_searchview_description_query = 0x7f0d0019;
-        public static final int abc_searchview_description_search = 0x7f0d001a;
-        public static final int abc_searchview_description_submit = 0x7f0d001b;
-        public static final int abc_searchview_description_voice = 0x7f0d001c;
-        public static final int abc_shareactionprovider_share_with = 0x7f0d001d;
-        public static final int abc_shareactionprovider_share_with_application = 0x7f0d001e;
-        public static final int abc_toolbar_collapse_description = 0x7f0d001f;
-        public static final int search_menu_title = 0x7f0d0025;
-        public static final int status_bar_notification_info_overflow = 0x7f0d0027;
+        public static final int abc_action_bar_home_description = 0x7f0d0006;
+        public static final int abc_action_bar_up_description = 0x7f0d0007;
+        public static final int abc_action_menu_overflow_description = 0x7f0d0008;
+        public static final int abc_action_mode_done = 0x7f0d0009;
+        public static final int abc_activity_chooser_view_see_all = 0x7f0d000a;
+        public static final int abc_activitychooserview_choose_application = 0x7f0d000b;
+        public static final int abc_capital_off = 0x7f0d000c;
+        public static final int abc_capital_on = 0x7f0d000d;
+        public static final int abc_menu_alt_shortcut_label = 0x7f0d000e;
+        public static final int abc_menu_ctrl_shortcut_label = 0x7f0d000f;
+        public static final int abc_menu_delete_shortcut_label = 0x7f0d0010;
+        public static final int abc_menu_enter_shortcut_label = 0x7f0d0011;
+        public static final int abc_menu_function_shortcut_label = 0x7f0d0012;
+        public static final int abc_menu_meta_shortcut_label = 0x7f0d0013;
+        public static final int abc_menu_shift_shortcut_label = 0x7f0d0014;
+        public static final int abc_menu_space_shortcut_label = 0x7f0d0015;
+        public static final int abc_menu_sym_shortcut_label = 0x7f0d0016;
+        public static final int abc_prepend_shortcut_label = 0x7f0d0017;
+        public static final int abc_search_hint = 0x7f0d0018;
+        public static final int abc_searchview_description_clear = 0x7f0d0019;
+        public static final int abc_searchview_description_query = 0x7f0d001a;
+        public static final int abc_searchview_description_search = 0x7f0d001b;
+        public static final int abc_searchview_description_submit = 0x7f0d001c;
+        public static final int abc_searchview_description_voice = 0x7f0d001d;
+        public static final int abc_shareactionprovider_share_with = 0x7f0d001e;
+        public static final int abc_shareactionprovider_share_with_application = 0x7f0d001f;
+        public static final int abc_toolbar_collapse_description = 0x7f0d0020;
+        public static final int search_menu_title = 0x7f0d0026;
+        public static final int status_bar_notification_info_overflow = 0x7f0d0028;
     }
     public static final class style {
         private style() {}

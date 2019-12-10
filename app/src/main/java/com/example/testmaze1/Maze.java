@@ -1,6 +1,5 @@
 package com.example.testmaze1;
 
-import java.util.ArrayList;
 
 public class Maze {
     public String [][]array1;

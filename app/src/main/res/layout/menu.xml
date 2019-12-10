@@ -25,8 +25,8 @@
 
         <TextView
             android:id="@+id/Name"
-            android:layout_width="236dp"
-            android:layout_height="58dp"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="35dp"
@@ -58,15 +58,6 @@
                 android:text="@string/start" />
 
             <Button
-                android:id="@+id/Level"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#D50000"
-                android:text="@string/Level" />
-
-            <Button
                 android:id="@+id/off"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -91,14 +82,14 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#FFD600"
+                android:background="#DD2C00"
                 android:text="@string/on" />
 
             <TextView
                 android:id="@+id/TextView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/holo_purple"
+                android:background="#FFD600"
                 android:text="@string/HighScore"
                 android:textColor="#030003"
                 android:textSize="30sp" />

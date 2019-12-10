@@ -5,6 +5,11 @@ import android.content.Context;
 import java.io.IOException;
 import java.io.InputStream;
 
+
+/*
+ * Class that loads the maze files to be displayd and played in the game.
+ * Reads the data that is stored in our assets file.
+ * */
 public class LoadJson {
     public String loadJSONFromAsset(Context context, String fileName) {
         String json = null;

@@ -23,6 +23,11 @@ anim btn_radio_to_off_mtrl_ring_outer_path_animation
 anim btn_radio_to_on_mtrl_dot_group_animation
 anim btn_radio_to_on_mtrl_ring_outer_animation
 anim btn_radio_to_on_mtrl_ring_outer_path_animation
+anim f
+anim myscale
+anim on
+anim start
+anim time
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -680,12 +685,12 @@ drawable tooltip_frame_light
 id ALT
 id CTRL
 id FUNCTION
-id Level
 id META
 id Name
 id SHIFT
 id SYM
 id StartGame
+id TextView1
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -921,6 +926,7 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 raw fantasymenu
 string Create
+string HighScore
 string Label
 string Level
 string Music

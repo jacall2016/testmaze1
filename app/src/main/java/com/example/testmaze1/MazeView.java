@@ -7,10 +7,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ExpandableListView;
+
 
 import androidx.annotation.Nullable;
-
 
 
 //displays the area of the maze close to the character, and moves the maze around the character.
@@ -24,6 +23,7 @@ public class MazeView extends View {
     public MazeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         maze = new Maze();
+
     }
 
     @Override
@@ -50,9 +50,8 @@ public class MazeView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
-        //x = event.getX();
-        //y = event.getY();
-        String direction = "";
+
+        String direction;
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -60,16 +59,16 @@ public class MazeView extends View {
                 y = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                float finnalX = event.getX();
-                float finnalY = event.getY();
-                if (Math.abs(x - finnalX) > Math.abs(y - finnalY)) {
-                    if (x < finnalX) {
+                float finalX = event.getX();
+                float finalY = event.getY();
+                if (Math.abs(x - finalX) > Math.abs(y - finalY)) {
+                    if (x < finalX) {
                         direction = "RIGHT";
                     } else {
                         direction = "LEFT";
                     }
                 } else {
-                    if (y > finnalY) {
+                    if (y > finalY) {
                         direction = "UP";
                     } else {
                         direction = "DOWN";

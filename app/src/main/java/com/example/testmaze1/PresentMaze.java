@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import java.util.Random;
 
-public class PresentMaze {
+public class PresentMaze extends AppCompatActivity {
 
     public int time;
 
@@ -32,9 +33,8 @@ public class PresentMaze {
         String file = loadJson.loadJSONFromAsset(mazeView.getContext(), "maze.json");
         Gson gson = new Gson();
         maze = gson.fromJson(file, Maze.class);
-        //System.out.println(file);
 
-        mainActivity = new MainActivity();
+       mainActivity = new MainActivity();
 
         time = 0;
 
@@ -239,7 +239,12 @@ public class PresentMaze {
                         presentLevel();
                         createMaze();
                     } else {
-                        mainActivity.callMainMenu();
+                        Long elapsedTime = mainActivity.mainMenu();
+                        System.out.println("elapsed time " + elapsedTime);
+                        Intent intent = new Intent(mazeView.getContext(), MenuActivity.class);
+                        intent.putExtra("Time", elapsedTime);
+                        mazeView.getContext().startActivity(intent);
+
                     }
                 }
 
@@ -356,7 +361,10 @@ public class PresentMaze {
                         presentLevel();
                         createMaze();
                     } else {
-                        mainActivity.callMainMenu();
+                        Long elapsedTime = mainActivity.mainMenu();
+                        Intent intent = new Intent(mazeView.getContext(), MenuActivity.class);
+                        intent.putExtra("Time", elapsedTime);
+                        mazeView.getContext().startActivity(intent);
                     }
                 }
 

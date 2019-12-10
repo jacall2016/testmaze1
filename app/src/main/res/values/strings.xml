@@ -7,8 +7,8 @@
         <string name="Label">A-MAZE-ING</string>
         <string name="Start">Start</string>
         <string name="Level">Level</string>
-        <string name="off">Off Music</string>
-        <string name="on">On music</string>
+        <string name="off">Music Off</string>
+        <string name="on">Music On</string>
         <string name="start">Start</string>
         <string name="menu">Menu</string>
         <string name="timeDisplayed">TimeDisplayed</string>
