@@ -2,7 +2,10 @@ package com.example.testmaze1;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +22,8 @@ import android.widget.TextView;
 
 //Game menu class that allows the user to interact with the buttons and start the game
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-    private long highScoreTime;
+    private long highScoreTime = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         startService(new Intent(this, JService.class));
+
+       // SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        //Long restoredLong = prefs.getLong("Score", -1);
+        //SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+
 
         //Text of the name of the Game
         TextView name =  findViewById(R.id.Name);
@@ -63,14 +72,30 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         } else{
             if (highScoreTime > 1000)
                 highScoreTime /= 1000;
-            String s1 = Long.toString(highScoreTime);
-            TextView theTextView =  findViewById(R.id.TextView1);
-            theTextView.setText("TIME: " + s1);
-            Animation timeA = AnimationUtils.loadAnimation(this,R.anim.time);
-            theTextView.setAnimation(timeA);
+            //if(restoredLong != -1)
+                //editor.putLong("Score", highScoreTime);
+                //editor.apply();
+            long seconds = 0;
 
+            if (highScoreTime > 59) {
+                seconds = highScoreTime % 60;
+                long minute = (highScoreTime - seconds) / 60;
+                System.out.println(minute);
+                System.out.println(seconds);
+                String s2 = Long.toString(minute);
+                String s3 = Long.toString(seconds);
+                TextView minutesS = findViewById(R.id.TextView1);
+                minutesS.setText("Time: " + s2 + " Min " + s3 + " Sec");
+            }else {
+                String s1 = Long.toString(highScoreTime);
+                TextView theTextView = findViewById(R.id.TextView1);
+                theTextView.setText("TIME: " + s1 + " seconds");
+                Animation timeA = AnimationUtils.loadAnimation(this, R.anim.time);
+                theTextView.setAnimation(timeA);
+            }
 
         }
+
     }
 
     //Various switch statements that when a button is clicked by the user will either go into the main activity/ start or stop the music.
