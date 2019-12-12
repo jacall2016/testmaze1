@@ -12,6 +12,7 @@ import java.util.Random;
 public class PresentMaze extends AppCompatActivity {
 
     public int time;
+    private boolean gameOn;
 
 
     private Maze maze;
@@ -35,7 +36,7 @@ public class PresentMaze extends AppCompatActivity {
         maze = gson.fromJson(file, Maze.class);
 
        mainActivity = new MainActivity();
-
+        gameOn = true;
         time = 0;
 
         wallPaint = new Paint();
@@ -167,6 +168,7 @@ public class PresentMaze extends AppCompatActivity {
     }
 
     public void moveCells(String direction) {
+        if(gameOn){
         for (int gx = 0; gx < ROWS; gx++) {
             for (int gy = 0; gy < COLS; gy++) {
                 //System.out.println("direction: " + direction);
@@ -239,11 +241,12 @@ public class PresentMaze extends AppCompatActivity {
                         presentLevel();
                         createMaze();
                     } else {
-                        Long elapsedTime = mainActivity.mainMenu();
-                        System.out.println("elapsed time " + elapsedTime);
-                        Intent intent = new Intent(mazeView.getContext(), MenuActivity.class);
-                        intent.putExtra("Time", elapsedTime);
-                        mazeView.getContext().startActivity(intent);
+                        gameOn = false;
+                        //Long elapsedTime = mainActivity.mainMenu();
+                        //System.out.println("elapsed time " + elapsedTime);
+                        //Intent intent = new Intent(mazeView.getContext(), MenuActivity.class);
+                        //intent.putExtra("Time", elapsedTime);
+                        //mazeView.getContext().startActivity(intent);
 
                     }
                 }
@@ -361,10 +364,7 @@ public class PresentMaze extends AppCompatActivity {
                         presentLevel();
                         createMaze();
                     } else {
-                        Long elapsedTime = mainActivity.mainMenu();
-                        Intent intent = new Intent(mazeView.getContext(), MenuActivity.class);
-                        intent.putExtra("Time", elapsedTime);
-                        mazeView.getContext().startActivity(intent);
+                        gameOn = false;
                     }
                 }
 
@@ -375,7 +375,7 @@ public class PresentMaze extends AppCompatActivity {
             }
         }
     }
-
+}
     private class Cell {
         boolean
                 wall = false,

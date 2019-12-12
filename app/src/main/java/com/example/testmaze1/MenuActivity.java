@@ -33,9 +33,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.menu);
         startService(new Intent(this, JService.class));
 
-       // SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-        //Long restoredLong = prefs.getLong("Score", -1);
-        //SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        long restoredLong = prefs.getLong("Score", -1);
+        System.out.println("this is the value of the HS: " + restoredLong);
+
+
 
 
         //Text of the name of the Game
@@ -62,23 +64,34 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //Gets the intent's data of elapsed time to be able to display Score
         highScoreTime = getIntent().getLongExtra("Time", 999999999);
-        System.out.println("highscoreS:"+highScoreTime);
-        if(highScoreTime == 999999999){
+
+
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        editor.putLong("Score", highScoreTime);
+        editor.apply();
+
+
+
+        if (restoredLong != 999999999 && restoredLong < highScoreTime) {
+            restoredLong /= 1000;
+            String s4 = Long.toString(restoredLong);
+            TextView scree = findViewById(R.id.TextView1);
+            scree.setText("TIME: " + s4 +" seconds");
+            restoredLong = highScoreTime;
+        }else if(highScoreTime == 999999999){
             TextView theTextView = (TextView) findViewById(R.id.TextView1);
             theTextView.setText("TIME:");
             Animation timeA = AnimationUtils.loadAnimation(this,R.anim.time);
             theTextView.setAnimation(timeA);
 
-        } else{
+        }else if(highScoreTime < restoredLong){
             if (highScoreTime > 1000)
                 highScoreTime /= 1000;
             //if(restoredLong != -1)
-                //editor.putLong("Score", highScoreTime);
-                //editor.apply();
-            long seconds = 0;
 
-            if (highScoreTime > 59) {
-                seconds = highScoreTime % 60;
+
+            if (highScoreTime >= 60) {
+                long seconds = highScoreTime % 60;
                 long minute = (highScoreTime - seconds) / 60;
                 System.out.println(minute);
                 System.out.println(seconds);
@@ -86,6 +99,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 String s3 = Long.toString(seconds);
                 TextView minutesS = findViewById(R.id.TextView1);
                 minutesS.setText("Time: " + s2 + " Min " + s3 + " Sec");
+                Animation timeA = AnimationUtils.loadAnimation(this, R.anim.time);
+                minutesS.setAnimation(timeA);
             }else {
                 String s1 = Long.toString(highScoreTime);
                 TextView theTextView = findViewById(R.id.TextView1);

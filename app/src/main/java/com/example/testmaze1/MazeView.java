@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Chronometer;
 
 
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ public class MazeView extends View {
         presentMaze = new PresentMaze(this, height, width);
         presentMaze.createMaze();
     }
+
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
