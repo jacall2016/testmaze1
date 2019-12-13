@@ -668,7 +668,6 @@ drawable btn_radio_on_to_off_mtrl_animation
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable maze123
-drawable mazeicon
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
