@@ -17,10 +17,14 @@ import android.os.Bundle;
  * */
 public class MainActivity extends AppCompatActivity {
 
+    // Private member variables used in the timer
     private Chronometer chronometer;
     private boolean running;
     long startTime;
 
+    /* creates the Activity, displays the chronometer, starts the chronometer, and at the same time gets the
+    * start time of how long the user is in the Activity
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         startTimer();
     }
 
+    // Determines if the chronometer is running and if it is calculates the time
     public void startTimer()
     {
         if (!running)
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Gets the time the user took to complete the maze. Coverts it from milliseconds and displays it
     public void menuButton(View view) {
         long highScoreTime = getIntent().getLongExtra("Highscore", 999999999);
         System.out.println("HS:" + highScoreTime);
@@ -52,16 +58,5 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this, MenuActivity.class);
         myIntent.putExtra("Time", highScoreTime);
         startActivity(myIntent);
-    }
-
-
-    public Long mainMenu() {
-        long elapsedTime;
-        elapsedTime = ((startTime - SystemClock.elapsedRealtime()) * -1);
-        System.out.println("elapsed time in menu: " + elapsedTime);
-        //Intent myIntent = new Intent(this, MenuActivity.class);
-        //myIntent.putExtra("Time", elapsedTime);
-        //startActivity(myIntent);
-return elapsedTime;
     }
 }
