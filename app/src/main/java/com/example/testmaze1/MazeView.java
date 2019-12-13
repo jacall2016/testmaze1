@@ -21,12 +21,14 @@ public class MazeView extends View {
     public int height;
     public PresentMaze presentMaze;
 
+    // Takes the Json data and re-creates it into a version that is used to create the maze
     public MazeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         maze = new Maze();
 
     }
 
+    // Gets the height and width of the screen and creates the maze in a custom view
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -38,6 +40,7 @@ public class MazeView extends View {
     }
 
 
+    // Sets the background of the custom view
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.GRAY);
@@ -45,10 +48,15 @@ public class MazeView extends View {
         presentMaze.drawMaze(canvas);
     }
 
+    // Draws all rectangles on the screen
     public void drawRect(Canvas canvas, float left, float top, float right, float bottom, Paint color) {
         canvas.drawRect(left, top, right, bottom, color);
     }
 
+
+    /* Gets the direction the user is trying to swipe and dependant
+    on that information, moves the player on the screen.
+    */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
