@@ -65,13 +65,22 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         highScoreTime = getIntent().getLongExtra("Time", 999999999);
         System.out.println("intent HS: "+ highScoreTime);
 
+        if(restoredLong < 1000)
+            restoredLong *= 1000;
+            System.out.println(restoredLong);
 
 
-        if (restoredLong != 999999999 && restoredLong < highScoreTime) {
+
+
+        System.out.println("THIS IS THE RESTORED LONNNNNG: " + restoredLong);
+        System.out.println("THIS IS THE HIGHSCORE TIME: " + highScoreTime);
+        if (restoredLong != 999999999 && restoredLong < highScoreTime || restoredLong == highScoreTime) {
+            if(restoredLong >= 1000)
+                restoredLong /= 1000;
             String s4 = Long.toString(restoredLong);
             TextView scree = findViewById(R.id.TextView1);
             scree.setText("TIME: " + s4 +" seconds");
-           // restoredLong = highScoreTime;
+
         }else if(highScoreTime == 999999999){
             TextView theTextView = (TextView) findViewById(R.id.TextView1);
             theTextView.setText("TIME:");
@@ -79,11 +88,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             theTextView.setAnimation(timeA);
 
         }else if(highScoreTime < restoredLong){
-            if (highScoreTime > 1000)
+
+            if (highScoreTime >= 1000)
                 highScoreTime /= 1000;
-            //if(restoredLong != -1)
-
-
             if (highScoreTime >= 60) {
                 long seconds = highScoreTime % 60;
                 long minute = (highScoreTime - seconds) / 60;
@@ -120,7 +127,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.StartGame:
                 Intent intent = new Intent(this, MainActivity.class);
-                if(highScoreTime != 999999999)
+                if(highScoreTime != 999999999 && highScoreTime < 1000)
                     highScoreTime *= 1000;
                 intent.putExtra("Highscore", highScoreTime);
                 startActivity(intent);
