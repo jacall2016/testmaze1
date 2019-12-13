@@ -1,6 +1,6 @@
 package com.example.testmaze1;
 
-
+// Hold the data in the JSON file
 public class Maze {
     public String [][]array1;
     public int rows1;
