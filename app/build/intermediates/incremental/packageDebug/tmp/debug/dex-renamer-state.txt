@@ -1,4 +1,4 @@
-#Thu Dec 12 19:37:41 MST 2019
-base.0=C\:\\Users\\Trae\\Documents\\AmazingMaze\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Sat Dec 14 22:00:31 MST 2019
+base.0=D\:\\Byui\\CS 241\\FinalMaze\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

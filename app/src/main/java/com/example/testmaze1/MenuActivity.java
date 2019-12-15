@@ -13,11 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 /*
-* This class allows the users to interact with the Menu of the game.
-* Included in here are the different buttons needed to start the game and allows the user to start and stop the music.
-* Also has the geting the Score for the player that will display when they finish the game.
-* Included for each Text/button are animations for them.
-* */
+ * This class allows the users to interact with the Menu of the game.
+ * Included in here are the different buttons needed to start the game and allows the user to start and stop the music.
+ * Also has the geting the Score for the player that will display when they finish the game.
+ * Included for each Text/button are animations for them.
+ * */
 
 //Game menu class that allows the user to interact with the buttons and start the game
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -63,18 +63,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         //Gets the intent's data of elapsed time to be able to display Score
         highScoreTime = getIntent().getLongExtra("Time", 999999999);
-        System.out.println("intent HS: "+ highScoreTime);
+        //System.out.println("intent HS: "+ highScoreTime);
+
 
         if(restoredLong < 1000)
             restoredLong *= 1000;
-            System.out.println(restoredLong);
+        System.out.println(restoredLong);
 
 
 
+        //System.out.println("THIS IS THE RESTORED LONNNNNG: " + restoredLong);
+        //System.out.println("THIS IS THE HIGHSCORE TIME: " + highScoreTime);
 
-        System.out.println("THIS IS THE RESTORED LONNNNNG: " + restoredLong);
-        System.out.println("THIS IS THE HIGHSCORE TIME: " + highScoreTime);
-        if (restoredLong != 999999999 && restoredLong < highScoreTime || restoredLong == highScoreTime) {
+        //If statements to determine whether the restored HighScore or the new highscore should be displayed
+        if (restoredLong != 999999999 && restoredLong < highScoreTime || restoredLong == highScoreTime && restoredLong != 999999999) {
             if(restoredLong >= 1000)
                 restoredLong /= 1000;
             String s4 = Long.toString(restoredLong);
@@ -82,7 +84,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             scree.setText("TIME: " + s4 +" seconds");
 
         }else if(highScoreTime == 999999999){
-            TextView theTextView = (TextView) findViewById(R.id.TextView1);
+            TextView theTextView = findViewById(R.id.TextView1);
             theTextView.setText("TIME:");
             Animation timeA = AnimationUtils.loadAnimation(this, R.anim.time);
             theTextView.setAnimation(timeA);
@@ -94,8 +96,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             if (highScoreTime >= 60) {
                 long seconds = highScoreTime % 60;
                 long minute = (highScoreTime - seconds) / 60;
-                System.out.println(minute);
-                System.out.println(seconds);
+                // System.out.println(minute);
+                //System.out.println(seconds);
                 String s2 = Long.toString(minute);
                 String s3 = Long.toString(seconds);
                 TextView minutesS = findViewById(R.id.TextView1);
@@ -103,7 +105,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 Animation timeA = AnimationUtils.loadAnimation(this, R.anim.time);
                 minutesS.setAnimation(timeA);
                 SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                editor.putLong("Score", highScoreTime);
+                editor.putLong("Score", highScoreTime); // applies the highscore time to the shared preferences so that it may be pulled out later
                 editor.apply();
             }else {
                 String s1 = Long.toString(highScoreTime);
@@ -112,9 +114,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 Animation timeA = AnimationUtils.loadAnimation(this, R.anim.time);
                 theTextView.setAnimation(timeA);
                 SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                editor.putLong("Score", highScoreTime);
+                editor.putLong("Score", highScoreTime);// applies the highscore time to the shared preferences so that it may be pulled out later
                 editor.apply();
-                System.out.println("HST" + highScoreTime + "RL" + restoredLong);
+                // System.out.println("HST" + highScoreTime + "RL" + restoredLong);
             }
 
         }
@@ -127,7 +129,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.StartGame:
                 Intent intent = new Intent(this, MainActivity.class);
-                if(highScoreTime != 999999999 && highScoreTime < 1000)
+                if(highScoreTime != 999999999 && highScoreTime < 1000) // allows the comparison of data in the next intent
                     highScoreTime *= 1000;
                 intent.putExtra("Highscore", highScoreTime);
                 startActivity(intent);

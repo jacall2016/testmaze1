@@ -10,9 +10,6 @@
         <string name="off">Music Off</string>
         <string name="on">Music On</string>
         <string name="start">Start</string>
-        <string name="menu">Menu</string>
+        <string name="menu">Exit</string>
         <string name="timeDisplayed">TimeDisplayed</string>
-        <string name="HighScore"></string>
-    </resources>
-
-
+</resources>

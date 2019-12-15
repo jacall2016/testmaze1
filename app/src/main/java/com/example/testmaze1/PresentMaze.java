@@ -1,20 +1,16 @@
 package com.example.testmaze1;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import java.util.Random;
 
 public class PresentMaze extends AppCompatActivity {
-
     public int time;
-    private boolean gameOn;
-
-
+    public boolean gameOn;
     private Maze maze;
     private Cell[][] cells;
     private String[][] CURRENT_ARRAY;
@@ -25,17 +21,17 @@ public class PresentMaze extends AppCompatActivity {
     private float HIEGHT;
     private float WIDTH;
     private Paint wallPaint, playerPaint, exitPaint, enemyPaint, lazerPaint, backgroundPaint;
-    MainActivity mainActivity;
 
-
+    /*
+     *This class changes the players location based on the information passed in from maze view.
+     * loads the levels and displays the proper items.
+     */
     public PresentMaze(MazeView mazeView,int height, int width) {
         this.mazeView = mazeView;
         LoadJson loadJson = new LoadJson();
         String file = loadJson.loadJSONFromAsset(mazeView.getContext(), "maze.json");
         Gson gson = new Gson();
         maze = gson.fromJson(file, Maze.class);
-
-       mainActivity = new MainActivity();
         gameOn = true;
         time = 0;
 
@@ -60,8 +56,8 @@ public class PresentMaze extends AppCompatActivity {
         createMaze();
     }
 
+    // Gets the arrays from maze class in order to display the current level
     void presentLevel() {
-        //System.out.println("Currentlevel: " + level);
 
         switch(level) {
             case 1:
@@ -94,9 +90,9 @@ public class PresentMaze extends AppCompatActivity {
 
         hMargin = (WIDTH - COLS * cellSize) / 2;
         vMargin = (HIEGHT - ROWS * cellSize) / 2;
-        //createMaze();
     }
 
+    //Creates the maze based on the information passed in from above
     public void createMaze () {
         cells = new Cell[ROWS][COLS];
         for (int gx = 0; gx < CURRENT_ARRAY.length; gx++) {
@@ -145,7 +141,7 @@ public class PresentMaze extends AppCompatActivity {
                     cells[gx+1][gy+1].nearPlayer = true;
                 }
 
-                if (cells[gx][gy].nearPlayer == true) {
+                if (cells[gx][gy].nearPlayer) {
                     if (cells[gx][gy].player) {
                         cells[gx][gy].color = playerPaint;
                         mazeView.drawRect(canvas, cells[gx][gy].left, cells[gx][gy].top, cells[gx][gy].right, cells[gx][gy].bottom, cells[gx][gy].color);
@@ -167,215 +163,211 @@ public class PresentMaze extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("ServiceCast")
     public void moveCells(String direction) {
         if(gameOn){
-        for (int gx = 0; gx < ROWS; gx++) {
-            for (int gy = 0; gy < COLS; gy++) {
-                //System.out.println("direction: " + direction);
-                //System.out.println("right1: " + cells[gx][gy].right + "left1: " + cells[gx][gy].left);
+            for (int gx = 0; gx < ROWS; gx++) {
+                for (int gy = 0; gy < COLS; gy++) {
+                    //System.out.println("direction: " + direction);
+                    //System.out.println("right1: " + cells[gx][gy].right + "left1: " + cells[gx][gy].left);
 
-                if (cells[gx][gy].player && cells[gx][gy].lazer) {
-                    for (int j = 0; j < ROWS; j++) {
-                        for (int i = 0; i < COLS; i++) {
-                            cells[gx][gy].lazer = false;
-                            if (cells[j][gy].monster || cells[gx][i].monster) {
-                                cells[j][gy].lazer = true;
-                                cells[gx][i].lazer = true;
-                                cells[j][gy].monster = false;
-                                cells[gx][i].monster = false;
+                    if (cells[gx][gy].player && cells[gx][gy].lazer) {
+                        for (int j = 0; j < ROWS; j++) {
+                            for (int i = 0; i < COLS; i++) {
+                                cells[gx][gy].lazer = false;
+                                if (cells[j][gy].monster || cells[gx][i].monster) {
+                                    cells[j][gy].lazer = true;
+                                    cells[gx][i].lazer = true;
+                                    cells[j][gy].monster = false;
+                                    cells[gx][i].monster = false;
+                                }
                             }
                         }
                     }
-                }
 
-                if (cells[gx][gy].monster && cells[gx][gy].lazer) {
-                    for (int j = 0; j < ROWS; j++) {
-                        for (int i = 0; i < COLS; i++) {
-                            cells[gx][gy].lazer = false;
-                            cells[gx][gy].monster = false;
-                            if (cells[j][gy].monster || cells[gx][i].monster) {
-                                cells[j][gy].lazer = true;
-                                cells[gx][i].lazer = true;
-                                cells[j][gy].monster = false;
-                                cells[gx][i].monster = false;
-                            }
-                        }
-                    }
-                }
-
-                if (cells[gx][gy].player) {
-                    if (direction == "UP") {
-                        if (!cells[gx][gy - 1].wall) {
-                            cells[gx][gy].player = false;
-                            cells[gx][gy - 1].player = true;
-                            direction = "";
-                        }
-                    }
-                    if (direction == "DOWN") {
-                        if (!cells[gx][gy + 1].wall) {
-                            cells[gx][gy].player = false;
-                            cells[gx][gy + 1].player = true;
-                            direction = "";
-                        }
-                    }
-                    if (direction == "RIGHT") {
-                        if (!cells[gx + 1][gy].wall) {
-                            cells[gx][gy].player = false;
-                            cells[gx + 1][gy].player = true;
-                            direction = "";
-                        }
-                    }
-                    if (direction == "LEFT") {
-                        if (!cells[gx - 1][gy].wall) {
-                            cells[gx][gy].player = false;
-                            cells[gx - 1][gy].player = true;
-                            direction = "";
-                        }
-                    }
-
-                }
-
-                if(cells[gx][gy].exit && cells[gx][gy].player) {
-                    if (level != 4) {
-                        level += 1;
-                        presentLevel();
-                        createMaze();
-                    } else {
-                        gameOn = false;
-                        //Long elapsedTime = mainActivity.mainMenu();
-                        //System.out.println("elapsed time " + elapsedTime);
-                        //Intent intent = new Intent(mazeView.getContext(), MenuActivity.class);
-                        //intent.putExtra("Time", elapsedTime);
-                        //mazeView.getContext().startActivity(intent);
-
-                    }
-                }
-
-                if (cells[gx][gy].player && cells[gx][gy].monster) {
-                    if (level < 4) {
-                        presentLevel();
-                    }
-                }
-
-                if (cells[gx][gy].exit) {
-                    Random monsterDirection = new Random();
-                    int randDirection = monsterDirection.nextInt(8);
-                    switch (randDirection) {
-                        case 0: //up
-                            if (!cells[gx][gy - 1].wall && !cells[gx][gy - 1].monster && !cells[gx][gy - 1].exit && !cells[gx][gy - 1].player) {
-                                cells[gx][gy].exit = false;
-                                cells[gx][gy - 1].exit = true;
-                            }
-                            break;
-                        case 1: // down
-                            if (!cells[gx][gy + 1].wall && !cells[gx][gy + 1].monster && !cells[gx][gy + 1].exit && !cells[gx][gy + 1].player) {
-                                cells[gx][gy].exit = false;
-                                cells[gx][gy + 1].exit = true;
-                            }
-                            break;
-                        case 2: // right
-                            if (!cells[gx - 1][gy].wall && !cells[gx - 1][gy].monster && !cells[gx - 1][gy].exit && !cells[gx - 1][gy].player) {
-                                cells[gx][gy].exit = false;
-                                cells[gx - 1][gy].exit = true;
-                            }
-                            break;
-                        case 3: // left
-                            if (!cells[gx + 1][gy].wall && !cells[gx + 1][gy].monster && !cells[gx + 1][gy].exit && !cells[gx + 1][gy].player) {
-                                cells[gx][gy].exit = false;
-                                cells[gx + 1][gy].exit = true;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                if (cells[gx][gy].monster) {
-                    Random monsterDirection = new Random();
-                    int randDirection = monsterDirection.nextInt(5);
-                    switch (randDirection) {
-                        case 0: //up
-                            if (!cells[gx][gy - 1].wall && !cells[gx][gy - 1].monster && !cells[gx][gy - 1].exit) {
+                    if (cells[gx][gy].monster && cells[gx][gy].lazer) {
+                        for (int j = 0; j < ROWS; j++) {
+                            for (int i = 0; i < COLS; i++) {
+                                cells[gx][gy].lazer = false;
                                 cells[gx][gy].monster = false;
-                                cells[gx][gy - 1].monster = true;
-                                break;
+                                if (cells[j][gy].monster || cells[gx][i].monster) {
+                                    cells[j][gy].lazer = true;
+                                    cells[gx][i].lazer = true;
+                                    cells[j][gy].monster = false;
+                                    cells[gx][i].monster = false;
+                                }
                             }
-                        case 1: // down
-                            if (!cells[gx][gy + 1].wall && !cells[gx][gy + 1].monster && !cells[gx][gy + 1].exit) {
-                                cells[gx][gy].monster = false;
-                                cells[gx][gy + 1].monster = true;
-                                break;
+                        }
+                    }
+
+                    if (cells[gx][gy].player) {
+                        if (direction == "UP") {
+                            if (!cells[gx][gy - 1].wall) {
+                                cells[gx][gy].player = false;
+                                cells[gx][gy - 1].player = true;
+                                direction = "";
                             }
-                        case 2: // right
-                            if (!cells[gx - 1][gy].wall && !cells[gx - 1][gy].monster && !cells[gx - 1][gy].exit) {
-                                cells[gx][gy].monster = false;
-                                cells[gx - 1][gy].monster = true;
-                                break;
+                        }
+                        if (direction == "DOWN") {
+                            if (!cells[gx][gy + 1].wall) {
+                                cells[gx][gy].player = false;
+                                cells[gx][gy + 1].player = true;
+                                direction = "";
                             }
-                        case 3: // left
-                            if (!cells[gx + 1][gy].wall && !cells[gx + 1][gy].monster && !cells[gx + 1][gy].exit) {
-                                cells[gx][gy].monster = false;
-                                cells[gx + 1][gy].monster = true;
-                                break;
+                        }
+                        if (direction == "RIGHT") {
+                            if (!cells[gx + 1][gy].wall) {
+                                cells[gx][gy].player = false;
+                                cells[gx + 1][gy].player = true;
+                                direction = "";
                             }
-                        case 4: // spawn
-                            Random rand = new Random();
-                            int spawnChance = rand.nextInt(ROWS);
-                            if (spawnChance == 0) {
-                                if (!cells[gx][gy - 1].wall && !cells[gx][gy - 1].monster && !cells[gx][gy - 1].exit && !cells[gx][gy - 1].player && (gx - 1) >= 0) {
+                        }
+                        if (direction == "LEFT") {
+                            if (!cells[gx - 1][gy].wall) {
+                                cells[gx][gy].player = false;
+                                cells[gx - 1][gy].player = true;
+                                direction = "";
+                            }
+                        }
+
+                    }
+
+                    if(cells[gx][gy].exit && cells[gx][gy].player) {
+                        if (level != 4) {
+                            level += 1;
+                            presentLevel();
+                            createMaze();
+                        } else {
+                            gameOn = false;
+
+                        }
+                    }
+
+                    if (cells[gx][gy].player && cells[gx][gy].monster) {
+                        if (level < 4) {
+                            presentLevel();
+                        }
+                    }
+
+                    if (cells[gx][gy].exit) {
+                        Random monsterDirection = new Random();
+                        int randDirection = monsterDirection.nextInt(8);
+                        switch (randDirection) {
+                            case 0: //up
+                                if (!cells[gx][gy - 1].wall && !cells[gx][gy - 1].monster && !cells[gx][gy - 1].exit && !cells[gx][gy - 1].player) {
+                                    cells[gx][gy].exit = false;
+                                    cells[gx][gy - 1].exit = true;
+                                }
+                                break;
+                            case 1: // down
+                                if (!cells[gx][gy + 1].wall && !cells[gx][gy + 1].monster && !cells[gx][gy + 1].exit && !cells[gx][gy + 1].player) {
+                                    cells[gx][gy].exit = false;
+                                    cells[gx][gy + 1].exit = true;
+                                }
+                                break;
+                            case 2: // right
+                                if (!cells[gx - 1][gy].wall && !cells[gx - 1][gy].monster && !cells[gx - 1][gy].exit && !cells[gx - 1][gy].player) {
+                                    cells[gx][gy].exit = false;
+                                    cells[gx - 1][gy].exit = true;
+                                }
+                                break;
+                            case 3: // left
+                                if (!cells[gx + 1][gy].wall && !cells[gx + 1][gy].monster && !cells[gx + 1][gy].exit && !cells[gx + 1][gy].player) {
+                                    cells[gx][gy].exit = false;
+                                    cells[gx + 1][gy].exit = true;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    if (cells[gx][gy].monster) {
+                        Random monsterDirection = new Random();
+                        int randDirection = monsterDirection.nextInt(5);
+                        switch (randDirection) {
+                            case 0: //up
+                                if (!cells[gx][gy - 1].wall && !cells[gx][gy - 1].monster && !cells[gx][gy - 1].exit) {
+                                    cells[gx][gy].monster = false;
                                     cells[gx][gy - 1].monster = true;
                                     break;
                                 }
-                                if (!cells[gx][gy + 1].wall && !cells[gx][gy + 1].monster && !cells[gx][gy + 1].exit && !cells[gx][gy + 1].player && (gx + 1) < ROWS) {
+                            case 1: // down
+                                if (!cells[gx][gy + 1].wall && !cells[gx][gy + 1].monster && !cells[gx][gy + 1].exit) {
+                                    cells[gx][gy].monster = false;
                                     cells[gx][gy + 1].monster = true;
                                     break;
                                 }
-                                if (!cells[gx - 1][gy].wall && !cells[gx - 1][gy].monster && !cells[gx - 1][gy].exit && !cells[gx - 1][gy].player && (gy - 1) > 0) {
-                                    cells[gx][gy - 1].monster = true;
+                            case 2: // right
+                                if (!cells[gx - 1][gy].wall && !cells[gx - 1][gy].monster && !cells[gx - 1][gy].exit) {
+                                    cells[gx][gy].monster = false;
+                                    cells[gx - 1][gy].monster = true;
                                     break;
                                 }
-                                if (!cells[gx + 1][gy].wall && !cells[gx + 1][gy].monster && !cells[gx + 1][gy].exit && !cells[gx + 1][gy].player && (gy + 1) < COLS) {
+                            case 3: // left
+                                if (!cells[gx + 1][gy].wall && !cells[gx + 1][gy].monster && !cells[gx + 1][gy].exit) {
+                                    cells[gx][gy].monster = false;
                                     cells[gx + 1][gy].monster = true;
                                     break;
                                 }
-                            }
-                            break;
-                        default :
-                            break;
+                            case 4: // spawn
+                                Random rand = new Random();
+                                int spawnChance = rand.nextInt(ROWS);
+                                if (spawnChance == 0) {
+                                    if (!cells[gx][gy - 1].wall && !cells[gx][gy - 1].monster && !cells[gx][gy - 1].exit && !cells[gx][gy - 1].player && (gx - 1) >= 0) {
+                                        cells[gx][gy - 1].monster = true;
+                                        break;
+                                    }
+                                    if (!cells[gx][gy + 1].wall && !cells[gx][gy + 1].monster && !cells[gx][gy + 1].exit && !cells[gx][gy + 1].player && (gx + 1) < ROWS) {
+                                        cells[gx][gy + 1].monster = true;
+                                        break;
+                                    }
+                                    if (!cells[gx - 1][gy].wall && !cells[gx - 1][gy].monster && !cells[gx - 1][gy].exit && !cells[gx - 1][gy].player && (gy - 1) > 0) {
+                                        cells[gx][gy - 1].monster = true;
+                                        break;
+                                    }
+                                    if (!cells[gx + 1][gy].wall && !cells[gx + 1][gy].monster && !cells[gx + 1][gy].exit && !cells[gx + 1][gy].player && (gy + 1) < COLS) {
+                                        cells[gx + 1][gy].monster = true;
+                                        break;
+                                    }
+                                }
+                                break;
+                            default :
+                                break;
+                        }
                     }
-                }
-                if (cells[gx][gy].player && cells[gx][gy].lazer) {
-                    for (int j = 0; j < ROWS; j++) {
-                        for (int i = 0; i < COLS; i++) {
-                            //cells[gx][gy].lazer = false;
-                            if (cells[j][gy].monster || cells[gx][i].monster) {
-                                cells[j][gy].lazer = true;
-                                cells[gx][i].lazer = true;
-                                cells[j][gy].monster = false;
-                                cells[gx][i].monster = false;
+                    if (cells[gx][gy].player && cells[gx][gy].lazer) {
+                        for (int j = 0; j < ROWS; j++) {
+                            for (int i = 0; i < COLS; i++) {
+                                //cells[gx][gy].lazer = false;
+                                if (cells[j][gy].monster || cells[gx][i].monster) {
+                                    cells[j][gy].lazer = true;
+                                    cells[gx][i].lazer = true;
+                                    cells[j][gy].monster = false;
+                                    cells[gx][i].monster = false;
+                                }
                             }
                         }
                     }
-                }
 
-                if(cells[gx][gy].exit && cells[gx][gy].player) {
-                    if (level != 4) {
-                        level += 1;
+                    if(cells[gx][gy].exit && cells[gx][gy].player) {
+                        if (level != 4) {
+                            level += 1;
+                            presentLevel();
+                            createMaze();
+                        } else {
+                            this.gameOn = false;
+                        }
+                    }
+
+                    if (cells[gx][gy].player && cells[gx][gy].monster) {
                         presentLevel();
                         createMaze();
-                    } else {
-                        gameOn = false;
                     }
-                }
-
-                if (cells[gx][gy].player && cells[gx][gy].monster) {
-                    presentLevel();
-                    createMaze();
                 }
             }
         }
     }
-}
     private class Cell {
         boolean
                 wall = false,
@@ -385,10 +377,10 @@ public class PresentMaze extends AppCompatActivity {
                 lazer = false,
                 nearPlayer = false;
         float
-            left = 0,
-            right = 0,
-            top = 0,
-            bottom = 0;
+                left = 0,
+                right = 0,
+                top = 0,
+                bottom = 0;
         Paint color;
     }
 }

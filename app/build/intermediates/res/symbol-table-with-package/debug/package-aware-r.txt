@@ -927,7 +927,6 @@ mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 raw fantasymenu
 string Create
-string HighScore
 string Label
 string Level
 string Music

@@ -90,7 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFD600"
-                android:text="@string/HighScore"
                 android:textColor="#030003"
                 android:textSize="30sp" />
 

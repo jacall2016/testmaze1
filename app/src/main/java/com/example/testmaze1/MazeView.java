@@ -29,7 +29,6 @@ public class MazeView extends View {
     }
 
     // Gets the height and width of the screen and creates the maze in a custom view
-    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         width = getWidth();
@@ -38,7 +37,6 @@ public class MazeView extends View {
         presentMaze = new PresentMaze(this, height, width);
         presentMaze.createMaze();
     }
-
 
     // Sets the background of the custom view
     protected void onDraw(Canvas canvas) {
@@ -53,10 +51,9 @@ public class MazeView extends View {
         canvas.drawRect(left, top, right, bottom, color);
     }
 
-
     /* Gets the direction the user is trying to swipe and dependant
-    on that information, moves the player on the screen.
-    */
+on that information, moves the player on the screen.
+*/
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
